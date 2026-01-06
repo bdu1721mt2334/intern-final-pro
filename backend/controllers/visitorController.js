@@ -1,6 +1,5 @@
 const Visitor = require("../models/Visitor");
 
-// ➕ Add Visitor
 exports.addVisitor = async (req, res) => {
   try {
     const visitor = new Visitor(req.body);
@@ -11,7 +10,6 @@ exports.addVisitor = async (req, res) => {
   }
 };
 
-// 📥 Get All Visitors
 exports.getVisitors = async (req, res) => {
   try {
     const visitors = await Visitor.find().sort({ createdAt: -1 });
@@ -21,7 +19,6 @@ exports.getVisitors = async (req, res) => {
   }
 };
 
-// ⏱️ Checkout Visitor
 exports.checkOutVisitor = async (req, res) => {
   try {
     const { id } = req.params;
