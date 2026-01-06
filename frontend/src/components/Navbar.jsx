@@ -13,7 +13,6 @@ export default function Navbar() {
   return (
     <div className="bg-blue-600 text-white px-6 py-4 flex items-center">
 
-      {/* LEFT MENU */}
       <div className="flex gap-6 font-medium">
         <Link to="/" className="hover:underline">Dashboard</Link>
         <Link to="/master" className="hover:underline">Master</Link> {/* ✅ ADD THIS */}
@@ -22,7 +21,6 @@ export default function Navbar() {
         <Link to="/reports" className="hover:underline">Reports</Link>
       </div>
 
-      {/* RIGHT LOGOUT */}
       <div className="ml-auto">
         <button
           onClick={logout}
