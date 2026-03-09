@@ -6,15 +6,12 @@ import { useNavigate } from "react-router-dom";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate(); // ✅ add this
+  const navigate = useNavigate();
 
   const login = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      alert("Login Successful");
-
-      // ✅ redirect to home/dashboard
-      navigate("/"); 
+      navigate("/");
     } catch (e) {
       alert(e.message);
     }
@@ -22,8 +19,8 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded shadow w-96">
-        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+      <div className="bg-white p-8 rounded-lg shadow w-96">
+        <h2 className="text-xl font-semibold mb-6 text-center">Visitor Login</h2>
 
         <input
           className="w-full p-2 border rounded mb-4"
@@ -42,7 +39,7 @@ export default function Login() {
 
         <button
           onClick={login}
-          className="w-full bg-blue-600 text-white p-2 rounded"
+          className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
         >
           Login
         </button>

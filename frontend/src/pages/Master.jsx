@@ -2,27 +2,58 @@ import { useEffect, useState } from "react";
 
 export default function Master() {
   const [visitorType, setVisitorType] = useState("");
-  const [purpose, setPurpose] = useState([]);
+  const [purpose, setPurpose] = useState("");
 
   const [visitorTypes, setVisitorTypes] = useState([]);
   const [purposes, setPurposes] = useState([]);
 
-  // 🔹 Load existing master data
+  // ⭐ DEFAULT DATA
+  const defaultTypes = ["Employee", "Interview", "Delivery", "Guest", "Vendor"];
+  const defaultPurposes = ["Meeting", "Interview", "Delivery", "Maintenance", "Personal"];
+
+  // ⭐ LOAD DATA (first time set default)
   useEffect(() => {
-    setVisitorTypes(JSON.parse(localStorage.getItem("visitorTypes")) || []);
-    setPurposes(JSON.parse(localStorage.getItem("purposes")) || []);
+    let types = JSON.parse(localStorage.getItem("visitorTypes"));
+    let purp = JSON.parse(localStorage.getItem("purposes"));
+
+    if (!types || types.length === 0) {
+      localStorage.setItem("visitorTypes", JSON.stringify(defaultTypes));
+      types = defaultTypes;
+    }
+
+    if (!purp || purp.length === 0) {
+      localStorage.setItem("purposes", JSON.stringify(defaultPurposes));
+      purp = defaultPurposes;
+    }
+
+    setVisitorTypes(types);
+    setPurposes(purp);
   }, []);
 
+  // ⭐ ADD VISITOR TYPE
   const addVisitorType = () => {
-    if (!visitorType) return;
+    if (!visitorType.trim()) return;
+
+    if (visitorTypes.includes(visitorType)) {
+      alert("Already exists");
+      return;
+    }
+
     const updated = [...visitorTypes, visitorType];
     setVisitorTypes(updated);
     localStorage.setItem("visitorTypes", JSON.stringify(updated));
     setVisitorType("");
   };
 
+  // ⭐ ADD PURPOSE
   const addPurpose = () => {
-    if (!purpose) return;
+    if (!purpose.trim()) return;
+
+    if (purposes.includes(purpose)) {
+      alert("Already exists");
+      return;
+    }
+
     const updated = [...purposes, purpose];
     setPurposes(updated);
     localStorage.setItem("purposes", JSON.stringify(updated));
@@ -30,12 +61,13 @@ export default function Master() {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">Master Management</h1>
+    <div className="p-6 max-w-5xl mx-auto">
+      <h1 className="text-2xl font-semibold mb-6">Master Management</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Visitor Type Master */}
-        <div className="bg-white p-5 rounded shadow">
+      <div className="grid md:grid-cols-2 gap-6">
+
+        {/* Visitor Type */}
+        <div className="card">
           <h2 className="font-semibold mb-3">Visitor Type Master</h2>
 
           <div className="flex gap-2 mb-3">
@@ -45,10 +77,7 @@ export default function Master() {
               className="border p-2 rounded w-full"
               placeholder="Enter Visitor Type"
             />
-            <button
-              onClick={addVisitorType}
-              className="bg-blue-600 text-white px-4 rounded"
-            >
+            <button onClick={addVisitorType} className="btn">
               Add
             </button>
           </div>
@@ -60,8 +89,8 @@ export default function Master() {
           </ul>
         </div>
 
-        {/* Purpose Master */}
-        <div className="bg-white p-5 rounded shadow">
+        {/* Purpose */}
+        <div className="card">
           <h2 className="font-semibold mb-3">Purpose Master</h2>
 
           <div className="flex gap-2 mb-3">
@@ -71,10 +100,7 @@ export default function Master() {
               className="border p-2 rounded w-full"
               placeholder="Enter Purpose"
             />
-            <button
-              onClick={addPurpose}
-              className="bg-green-600 text-white px-4 rounded"
-            >
+            <button onClick={addPurpose} className="btn">
               Add
             </button>
           </div>
@@ -85,6 +111,7 @@ export default function Master() {
             ))}
           </ul>
         </div>
+
       </div>
     </div>
   );

@@ -17,7 +17,6 @@ export default function Visitors() {
     }
   };
 
-  // Group visitors by date
   const grouped = visitors.reduce((acc, v) => {
     acc[v.date] = acc[v.date] || [];
     acc[v.date].push(v);
@@ -26,18 +25,14 @@ export default function Visitors() {
 
   return (
     <div className="p-6">
-      <h2 className="text-xl font-bold mb-4">Visitor Records</h2>
+      <h2 className="text-xl font-semibold mb-4">Visitor Records</h2>
 
-      <div className="bg-white p-5 rounded shadow">
-        {Object.keys(grouped).length === 0 && (
-          <p>No visitor records found</p>
-        )}
+      <div className="card">
+        {Object.keys(grouped).length === 0 && <p>No visitor records found</p>}
 
         {Object.keys(grouped).map(date => (
           <div key={date} className="mb-6">
-            <h3 className="font-semibold text-blue-600 mb-2">
-              📅 {date}
-            </h3>
+            <h3 className="font-medium text-blue-600 mb-2">{date}</h3>
 
             {grouped[date].map(v => (
               <div key={v._id} className="border-b py-2">
